@@ -16,13 +16,13 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'mongodb',
   connector: 'mongodb',
-  url: 'mongodb://localhost:27017/UsersMangaDb',
+  url: 'mongodb://localhost:27017/UserMangaDb',
   host: 'localhost',
   port: 27017,
   user: '',
   password: '',
-  database: 'UsersMangaDb',
-  useNewUrlParser: false
+  database: 'UserMangaDb',
+  useNewUrlParser: true
 };
 
 //hello www

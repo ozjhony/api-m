@@ -22,8 +22,10 @@ const config = {
   user: '',
   password: '',
   database: 'UserMangaDb',
-  useNewUrlParser: true
+  useNewUrlParser: false
 };
+
+//hello www
 
 // Observe application's life cycle to disconnect the datasource when
 // application is stopped. This allows the application to be shut down

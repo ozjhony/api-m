@@ -1,6 +1,18 @@
 import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
 
+/*const config = {
+  name: 'mongodb',
+  connector: 'mongodb',
+  url: 'mongodb+srv://user_manga_db:moErZDu4XsvL3v3C@cluster0-b9mfd.mongodb.net/UserMangaDb?retryWrites=true&w=majority',
+  host: 'cluster0-b9mfd.mongodb.net',
+  port: 27017,
+  user: 'user_manga_db',
+  password: 'moErZDu4XsvL3v3C',
+  database: 'UserMangaDb',
+  useNewUrlParser: true
+};**/
+
 const config = {
   name: 'mongodb',
   connector: 'mongodb',

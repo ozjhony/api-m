@@ -5,5 +5,6 @@ export * from './comentario.repository';
 export * from './manga.repository';
 export * from './mensaje.repository';
 export * from './publicacion.repository';
-export * from './user.repository';
 export * from './usuario.repository';
+
+export * from './userlog.repository';

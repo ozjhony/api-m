@@ -9,3 +9,4 @@ export * from './usuario.model';
 
 
 export * from './userlog.model';
+export * from './denuncia.model';

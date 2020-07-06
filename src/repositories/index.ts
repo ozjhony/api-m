@@ -8,3 +8,4 @@ export * from './publicacion.repository';
 export * from './usuario.repository';
 
 export * from './userlog.repository';
+export * from './denuncia.repository';

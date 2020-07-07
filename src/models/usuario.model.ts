@@ -1,9 +1,9 @@
-import {Entity, model, property, hasOne, hasMany} from '@loopback/repository';
-import {Userlog} from './userlog.model';
-import {Buzon} from './buzon.model';
-import {Publicacion} from './publicacion.model';
-import {Denuncia} from './denuncia.model';
+import {Entity, hasMany, hasOne, model, property} from '@loopback/repository';
 import {Biblioteca} from './biblioteca.model';
+import {Buzon} from './buzon.model';
+import {Denuncia} from './denuncia.model';
+import {Publicacion} from './publicacion.model';
+import {Userlog} from './userlog.model';
 
 @model()
 export class Usuario extends Entity {
@@ -80,7 +80,7 @@ export class Usuario extends Entity {
   denunciaId?: string;
 
   @hasOne(() => Biblioteca)
-  biblioteca: Biblioteca;
+  biblioteca?: Biblioteca;
 
   @property({
     type: 'string',

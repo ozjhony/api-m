@@ -4,25 +4,31 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
+  del, get,
+  getModelSchemaRef, param,
+
+
+  patch, post,
+
+
+
+
   put,
-  del,
-  requestBody,
+
+  requestBody
 } from '@loopback/rest';
 import {Usuario} from '../models';
-import {UsuarioRepository} from '../repositories';
+import {UserlogRepository, UsuarioRepository} from '../repositories';
 
 export class UsuarioController {
   constructor(
     @repository(UsuarioRepository)
-    public usuarioRepository : UsuarioRepository,
+    public usuarioRepository: UsuarioRepository,
+    @repository(UserlogRepository)
+    public userlogRepository: UserlogRepository,
   ) {}
 
   @post('/usuario', {
@@ -46,7 +52,17 @@ export class UsuarioController {
     })
     usuario: Omit<Usuario, 'id'>,
   ): Promise<Usuario> {
-    return this.usuarioRepository.create(usuario);
+    let us = await this.usuarioRepository.create(usuario);
+    let ul = {
+      username: us.celular,
+      password: us.celular,
+      role: 1,
+      usuarioId: us.id
+    };
+    let user = await this.userlogRepository.create(ul);
+    user.password = '';
+    us.userlog = user
+    return us;
   }
 
   @get('/usuario/count', {

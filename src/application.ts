@@ -1,4 +1,4 @@
-import {AuthenticationComponent} from '@loopback/authentication';
+import {AuthenticationBindings, AuthenticationComponent} from '@loopback/authentication';
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
 import {RepositoryMixin} from '@loopback/repository';
@@ -9,6 +9,7 @@ import {
 } from '@loopback/rest-explorer';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
+import {MyAuthStrategyProvider} from './providers/auth-strategy.provider';
 import {MySequence} from './sequence';
 
 export {ApplicationConfig};
@@ -33,9 +34,9 @@ export class App extends BootMixin(
     this.projectRoot = __dirname;
 
     this.component(AuthenticationComponent);
-    //this.bind(AuthenticationBindings.STRATEGY).toProvider(
-    //  MyAuthStrategyProvider
-    // );
+    this.bind(AuthenticationBindings.STRATEGY).toProvider(
+      MyAuthStrategyProvider,
+    );
 
     this.sequence(MySequence);
 

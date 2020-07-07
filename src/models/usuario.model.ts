@@ -3,6 +3,7 @@ import {Userlog} from './userlog.model';
 import {Buzon} from './buzon.model';
 import {Publicacion} from './publicacion.model';
 import {Denuncia} from './denuncia.model';
+import {Biblioteca} from './biblioteca.model';
 
 @model()
 export class Usuario extends Entity {
@@ -77,6 +78,14 @@ export class Usuario extends Entity {
     type: 'string',
   })
   denunciaId?: string;
+
+  @hasOne(() => Biblioteca)
+  biblioteca: Biblioteca;
+
+  @property({
+    type: 'string',
+  })
+  bibliotecaId?: string;
 
   constructor(data?: Partial<Usuario>) {
     super(data);

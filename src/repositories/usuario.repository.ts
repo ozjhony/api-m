@@ -1,11 +1,12 @@
 import {DefaultCrudRepository, repository, HasOneRepositoryFactory, HasManyRepositoryFactory} from '@loopback/repository';
-import {Usuario, UsuarioRelations, Userlog, Buzon, Publicacion, Denuncia} from '../models';
+import {Usuario, UsuarioRelations, Userlog, Buzon, Publicacion, Denuncia, Biblioteca} from '../models';
 import {MongodbDataSource} from '../datasources';
 import {inject, Getter} from '@loopback/core';
 import {UserlogRepository} from './userlog.repository';
 import {BuzonRepository} from './buzon.repository';
 import {PublicacionRepository} from './publicacion.repository';
 import {DenunciaRepository} from './denuncia.repository';
+import {BibliotecaRepository} from './biblioteca.repository';
 
 export class UsuarioRepository extends DefaultCrudRepository<
   Usuario,
@@ -21,10 +22,14 @@ export class UsuarioRepository extends DefaultCrudRepository<
 
   public readonly denuncias: HasManyRepositoryFactory<Denuncia, typeof Usuario.prototype.id>;
 
+  public readonly biblioteca: HasOneRepositoryFactory<Biblioteca, typeof Usuario.prototype.id>;
+
   constructor(
-    @inject('datasources.mongodb') dataSource: MongodbDataSource, @repository.getter('UserlogRepository') protected userlogRepositoryGetter: Getter<UserlogRepository>, @repository.getter('BuzonRepository') protected buzonRepositoryGetter: Getter<BuzonRepository>, @repository.getter('PublicacionRepository') protected publicacionRepositoryGetter: Getter<PublicacionRepository>, @repository.getter('DenunciaRepository') protected denunciaRepositoryGetter: Getter<DenunciaRepository>,
+    @inject('datasources.mongodb') dataSource: MongodbDataSource, @repository.getter('UserlogRepository') protected userlogRepositoryGetter: Getter<UserlogRepository>, @repository.getter('BuzonRepository') protected buzonRepositoryGetter: Getter<BuzonRepository>, @repository.getter('PublicacionRepository') protected publicacionRepositoryGetter: Getter<PublicacionRepository>, @repository.getter('DenunciaRepository') protected denunciaRepositoryGetter: Getter<DenunciaRepository>, @repository.getter('BibliotecaRepository') protected bibliotecaRepositoryGetter: Getter<BibliotecaRepository>,
   ) {
     super(Usuario, dataSource);
+    this.biblioteca = this.createHasOneRepositoryFactoryFor('biblioteca', bibliotecaRepositoryGetter);
+    this.registerInclusionResolver('biblioteca', this.biblioteca.inclusionResolver);
     this.denuncias = this.createHasManyRepositoryFactoryFor('denuncias', denunciaRepositoryGetter,);
     this.registerInclusionResolver('denuncias', this.denuncias.inclusionResolver);
     this.publicacions = this.createHasManyRepositoryFactoryFor('publicacions', publicacionRepositoryGetter,);

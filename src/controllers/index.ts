@@ -25,3 +25,5 @@ export * from './publicacion-comentario.controller';
 export * from './comentario-publicacion.controller';
 export * from './usuario-denuncia.controller';
 export * from './denuncia-usuario.controller';
+export * from './usuario-biblioteca.controller';
+export * from './biblioteca-usuario.controller';

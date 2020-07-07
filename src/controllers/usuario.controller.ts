@@ -173,6 +173,11 @@ export class UsuarioController {
     @param.path.string('id') id: string,
     @requestBody() usuario: Usuario,
   ): Promise<void> {
+    let us = await this.userlogRepository.findOne({where: {usuarioId: usuario.id}})
+    if (us) {
+      us.username = usuario.celular;
+      await this.userlogRepository.replaceById(us.id, us);
+    }
     await this.usuarioRepository.replaceById(id, usuario);
   }
 

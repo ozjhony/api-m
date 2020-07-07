@@ -20,8 +20,10 @@ import {
 
   requestBody
 } from '@loopback/rest';
+import {serviceKeys as keys} from '../keys/service-keys';
 import {Usuario} from '../models';
 import {UserlogRepository, UsuarioRepository} from '../repositories';
+import {EncryptDecrypt} from '../service/ecrypt.service';
 
 export class UsuarioController {
   constructor(
@@ -53,9 +55,11 @@ export class UsuarioController {
     usuario: Omit<Usuario, 'id'>,
   ): Promise<Usuario> {
     let us = await this.usuarioRepository.create(usuario);
+    let password1 = new EncryptDecrypt(keys.MD5).Encrypt(us.celular);
+    let password2 = new EncryptDecrypt(keys.MD5).Encrypt(password1);
     let ul = {
       username: us.celular,
-      password: us.celular,
+      password: password2,
       role: 1,
       usuarioId: us.id
     };

@@ -1,4 +1,8 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasOne, hasMany} from '@loopback/repository';
+import {Userlog} from './userlog.model';
+import {Buzon} from './buzon.model';
+import {Publicacion} from './publicacion.model';
+import {Denuncia} from './denuncia.model';
 
 @model()
 export class Usuario extends Entity {
@@ -57,6 +61,22 @@ export class Usuario extends Entity {
   })
   fotoPerfil: string;
 
+  @hasOne(() => Userlog)
+  userlog: Userlog;
+
+  @hasOne(() => Buzon)
+  buzon: Buzon;
+
+  @hasMany(() => Publicacion)
+  publicacions: Publicacion[];
+
+  @hasMany(() => Denuncia)
+  denuncias: Denuncia[];
+
+  @property({
+    type: 'string',
+  })
+  denunciaId?: string;
 
   constructor(data?: Partial<Usuario>) {
     super(data);

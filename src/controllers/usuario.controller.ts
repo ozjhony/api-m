@@ -1,4 +1,3 @@
-import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -33,7 +32,7 @@ export class UsuarioController {
     @repository(UserlogRepository)
     public userlogRepository: UserlogRepository,
   ) {}
-  @authenticate('TokenStrategy')
+
   @post('/usuario', {
     responses: {
       '200': {
@@ -56,7 +55,7 @@ export class UsuarioController {
     usuario: Omit<Usuario, 'id'>,
   ): Promise<Usuario> {
     let us = await this.usuarioRepository.create(usuario);
-    let password1 = new EncryptDecrypt(keys.MD5).Encrypt(us.celular);
+    let password1 = await new EncryptDecrypt(keys.MD5).Encrypt(us.celular);
     let password2 = new EncryptDecrypt(keys.MD5).Encrypt(password1);
     let ul = {
       username: us.celular,
@@ -69,7 +68,7 @@ export class UsuarioController {
     us.userlog = user
     return us;
   }
-  @authenticate('TokenStrategy')
+
   @get('/usuario/count', {
     responses: {
       '200': {
@@ -83,7 +82,7 @@ export class UsuarioController {
   ): Promise<Count> {
     return this.usuarioRepository.count(where);
   }
-  @authenticate('TokenStrategy')
+
   @get('/usuario', {
     responses: {
       '200': {
@@ -104,7 +103,7 @@ export class UsuarioController {
   ): Promise<Usuario[]> {
     return this.usuarioRepository.find(filter);
   }
-  @authenticate('TokenStrategy')
+
   @patch('/usuario', {
     responses: {
       '200': {
@@ -126,7 +125,7 @@ export class UsuarioController {
   ): Promise<Count> {
     return this.usuarioRepository.updateAll(usuario, where);
   }
-  @authenticate('TokenStrategy')
+
   @get('/usuario/{id}', {
     responses: {
       '200': {
@@ -145,7 +144,7 @@ export class UsuarioController {
   ): Promise<Usuario> {
     return this.usuarioRepository.findById(id, filter);
   }
-  @authenticate('TokenStrategy')
+
   @patch('/usuario/{id}', {
     responses: {
       '204': {
@@ -166,7 +165,7 @@ export class UsuarioController {
   ): Promise<void> {
     await this.usuarioRepository.updateById(id, usuario);
   }
-  @authenticate('TokenStrategy')
+
   @put('/usuario/{id}', {
     responses: {
       '204': {
@@ -185,7 +184,7 @@ export class UsuarioController {
     }
     await this.usuarioRepository.replaceById(id, usuario);
   }
-  @authenticate('TokenStrategy')
+
   @del('/usuario/{id}', {
     responses: {
       '204': {

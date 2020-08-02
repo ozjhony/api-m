@@ -11,6 +11,13 @@ class Credentials {
 }
 
 
+class PasswordResetData {
+  username: string;
+  type: number;
+}
+
+
+
 
 export class userlogControler {
 
@@ -38,7 +45,7 @@ export class userlogControler {
   ): Promise<object> {
     let user = await this.authService.Identify(credentials.username, credentials.password);
     if (user) {
-      let tk = this.authService.GenerateToken(user);
+      let tk = await this.authService.GenerateToken(user);
       return {
         data: user,
         token: tk
@@ -47,6 +54,47 @@ export class userlogControler {
       throw new HttpErrors[401]("User or Password invalid.");
     }
   }
+
+
+  @post('/password-reset', {
+    responses: {
+      '200': {
+        description: 'login for users'
+      }
+    }
+  })
+  async reset(
+    @requestBody() passwordResetData: PasswordResetData
+  ): Promise<boolean> {
+    let randomPassword = await this.authService.ResetPassword(passwordResetData.username)
+
+    if (randomPassword) {
+      //send sms
+      //envio de cualquier cosa
+      switch (passwordResetData.type) {
+        case 1:
+          //send sms
+          console.log("sending sms :" + randomPassword)
+          return true;
+          break;
+
+
+        case 2:
+          //send sms
+          console.log("sending sms :" + randomPassword)
+          return false;
+          break;
+
+
+        default:
+          throw new HttpErrors[400]("this password is not supported");
+          break;
+      }
+    }
+    throw new HttpErrors[400]("user not found");
+  }
+
+
 
 
 

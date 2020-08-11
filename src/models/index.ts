@@ -10,3 +10,5 @@ export * from './usuario.model';
 
 export * from './userlog.model';
 export * from './denuncia.model';
+export * from './sms-notification.model';
+export * from './email-notification.model';

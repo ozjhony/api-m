@@ -3,7 +3,7 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
@@ -13,18 +13,15 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
-import {
-  Usuario,
-  Userlog,
-} from '../models';
+import {Userlog, Usuario} from '../models';
 import {UsuarioRepository} from '../repositories';
 
 export class UsuarioUserlogController {
   constructor(
     @repository(UsuarioRepository) protected usuarioRepository: UsuarioRepository,
-  ) { }
+  ) {}
 
   @get('/usuarios/{id}/userlog', {
     responses: {

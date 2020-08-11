@@ -28,8 +28,9 @@ export class Userlog extends Entity {
   })
   role: number;
 
+
   @belongsTo(() => Usuario)
-  usuarioId?: string;
+  usuarioId: string;
 
   constructor(data?: Partial<Userlog>) {
     super(data);

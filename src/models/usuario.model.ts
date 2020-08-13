@@ -51,16 +51,10 @@ export class Usuario extends Entity {
   ciudad: string;
 
   @property({
-    type: 'date',
-    required: true,
-  })
-  fechaNacimiento: string;
-
-  @property({
     type: 'string',
     required: true,
   })
-  fotoPerfil: string;
+  fechaNacimiento: string;
 
   @hasOne(() => Userlog)
   userlog: Userlog;

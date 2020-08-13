@@ -54,6 +54,7 @@
     "@sendgrid/mail": "^7.2.3",
     "@types/passport-http-bearer": "^1.0.35",
     "crypto-js": "^4.0.0",
+    "generate": "^0.14.0",
     "generate-password": "^1.5.1",
     "jsonwebtoken": "^8.5.1",
     "loopback-connector-mongodb": "^5.2.3",
